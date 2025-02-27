@@ -6,7 +6,7 @@ const User = require("../models/User");
 const router = express.Router();
 
 
-router.post("/signup", async (req, res) => {
+router.post("/", async (req, res) => {
     try {
         const { name, email, password} = req.body;
 
@@ -50,7 +50,7 @@ router.post("/login", async (req, res) => {
         }
 
         console.log("Login successful for:", user.email);
-        res.json({ user }); // Return user data
+        res.json({ user });
 
     } catch (error) {
         console.error("Login Error:", error);
