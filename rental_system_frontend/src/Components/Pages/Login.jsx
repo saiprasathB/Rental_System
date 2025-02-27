@@ -10,7 +10,7 @@ function Login() {
     const handleLogin = async (e) => {
       e.preventDefault();
       try {
-          const res = await axios.post("http://localhost:5000/api/auth/login", 
+          const res = await axios.post("https://rental-system-backend-ioto.onrender.com/", 
               { email, password }, 
               { headers: { "Content-Type": "application/json" } }
           );
