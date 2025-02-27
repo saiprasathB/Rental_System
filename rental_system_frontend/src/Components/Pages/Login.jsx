@@ -8,28 +8,33 @@ function Login() {
     const navigate = useNavigate();
 
     const handleLogin = async (e) => {
-      e.preventDefault();
-      try {
-          const res = await axios.post("https://rental-system-backend-ioto.onrender.com/login", 
-              { email, password }, 
-              { headers: { "Content-Type": "application/json" } }
-          );
-  
-          console.log("Login Response:", res.data);
-  
-          if (res.data.user) {
-              localStorage.setItem("user", JSON.stringify(res.data.user)); 
-              console.log("Navigating to Home...");
-              navigate("/home");
-          } else {
-              alert("Login failed: User not found or incorrect password.");
-          }
-      } catch (error) {
-          console.error("Login Error:", error);
-          alert("Login failed! " + (error.response?.data?.message || "Server error."));
-      }
-  };
-  
+        e.preventDefault();
+        try {
+            const res = await axios.post("https://rental-system-backend-ioto.onrender.com/login", 
+                { email, password }, 
+                { headers: { "Content-Type": "application/json" } }
+            );
+
+            console.log("Login Response:", res.data);
+
+            if (res.data.userId) {
+                // Save user data in localStorage
+                localStorage.setItem("user", JSON.stringify({
+                    userId: res.data.userId,
+                    email: res.data.email,
+                }));
+
+                console.log("Navigating to Home...");
+                navigate("/");
+            } else {
+                alert("Login failed: User not found or incorrect password.");
+            }
+        } catch (error) {
+            console.error("Login Error:", error);
+            alert("Login failed! " + (error.response?.data?.message || "Server error."));
+        }
+    };
+
     return (
         <div style={{
             display: "flex",

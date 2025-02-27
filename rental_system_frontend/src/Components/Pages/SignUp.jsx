@@ -10,12 +10,19 @@ function Signup() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+
+
         try {
-            await axios.post("https://rental-system-backend-ioto.onrender.com/signup", form);
-            alert("Signup successful! Please login.");
-            navigate("/login");
+            const res = await axios.post("https://rental-system-backend-ioto.onrender.com/signup", form);
+
+            const userData = res.data;
+            localStorage.setItem("hostId", userData.userId); 
+
+            alert("Signup successful!.");
+            navigate("/");
         } catch (error) {
-            alert(error.response.data.error);
+            console.error("Signup failed:", error);
+            alert("Signup failed: " + (error.response?.data?.message || "Please try again."));
         }
     };
 
@@ -41,39 +48,45 @@ function Signup() {
                         type="text" 
                         name="name" 
                         placeholder="Name" 
+                        value={form.name}
                         onChange={handleChange} 
                         required 
                         style={{
                             padding: "10px",
                             marginBottom: "10px",
                             border: "1px solid #ccc",
-                            borderRadius: "5px"
+                            borderRadius: "5px",
+                            cursor: "pointer"
                         }}
                     />
                     <input 
                         type="email" 
                         name="email" 
                         placeholder="Email" 
+                        value={form.email}
                         onChange={handleChange} 
                         required 
                         style={{
                             padding: "10px",
                             marginBottom: "10px",
                             border: "1px solid #ccc",
-                            borderRadius: "5px"
+                            borderRadius: "5px",
+                            cursor: "pointer"
                         }}
                     />
                     <input 
                         type="password" 
                         name="password" 
-                        placeholder="Password" 
+                        placeholder="Password (min. 6 chars)" 
+                        value={form.password}
                         onChange={handleChange} 
                         required 
                         style={{
                             padding: "10px",
                             marginBottom: "10px",
                             border: "1px solid #ccc",
-                            borderRadius: "5px"
+                            borderRadius: "5px",
+                            cursor: "pointer"
                         }}
                     />
                     <button type="submit" style={{
@@ -87,6 +100,14 @@ function Signup() {
                         Signup
                     </button>
                 </form>
+                <p style={{ marginTop: "20px" }}>
+                    Already have an account?{" "}
+                    <span 
+                        onClick={() => navigate("/login")} 
+                        style={{ color: "#007bff", cursor: "pointer", textDecoration: "underline" }}>
+                        Login as Host
+                    </span>
+                </p>
             </div>
         </div>
     );
