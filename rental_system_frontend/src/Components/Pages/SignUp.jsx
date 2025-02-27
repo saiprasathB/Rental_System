@@ -11,7 +11,7 @@ function Signup() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            await axios.post("https://rental-system-backend-ioto.onrender.com/", form);
+            await axios.post("https://rental-system-backend-ioto.onrender.com/signup", form);
             alert("Signup successful! Please login.");
             navigate("/login");
         } catch (error) {
