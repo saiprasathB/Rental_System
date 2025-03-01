@@ -1,0 +1,38 @@
+.post-rental-container {
+    text-align: center;
+    padding: 20px;
+}
+
+.post-rental-container h2 {
+    margin-bottom: 20px;
+}
+
+.post-rental-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 400px;
+    margin: auto;
+}
+
+.post-rental-form input {
+    padding: 10px;
+    margin-bottom: 10px;
+    width: 100%;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.post-rental-form button {
+    padding: 10px 20px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.post-rental-form button:hover {
+    background-color: #218838;
+}

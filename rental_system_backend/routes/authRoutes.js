@@ -9,7 +9,7 @@ const router = express.Router();
 
 
 router.post("/signup", async (req, res) => {
-    console.log("Received data:", req.body); // Add this line to debug
+    console.log("Received data:", req.body); 
     const { name, email, password } = req.body;
     
     if (!name || !email || !password) {
@@ -26,7 +26,7 @@ router.post("/signup", async (req, res) => {
         await newUser.save();
         res.json({ userId: newUser._id, message: "Signup successful" });
     } catch (error) {
-        console.error("Signup error:", error); // Add this line to log backend errors
+        console.error("Signup error:", error); 
         res.status(500).json({ error: "Server error" });
     }
 });
@@ -152,7 +152,7 @@ router.post("/postrental", async (req, res) => {
 
         if (!hostId) return res.status(400).json({ msg: "Host ID is required" });
 
-        // Check if host exists and is verified
+    
         const host = await Host.findById(hostId);
         if (!host) {
             return res.status(404).json({ msg: "Host not found" });
@@ -161,7 +161,7 @@ router.post("/postrental", async (req, res) => {
             return res.status(403).json({ msg: "Host is not verified. Cannot post rental." });
         }
 
-        // Create and save rental
+       
         const rental = new Rental({
             hostId,
             title,
@@ -178,6 +178,22 @@ router.post("/postrental", async (req, res) => {
         res.status(500).json({ msg: "Server error" });
     }
 });
+
+
+
+
+router.get("/rentaldata", async (req, res) => {
+    try {
+        const rentaldata = await Rental.find();
+        res.status(200).json(rentaldata); 
+        console.log("Fetched rental data:", rentaldata); 
+    } catch (error) {
+        console.error("Error in getting details:", error);
+        res.status(500).json({ error: "Server error" });
+    }
+});
+
+
 
 
 

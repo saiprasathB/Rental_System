@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import "../CSS/SignUp.css";
 
 function Signup() {
     const [form, setForm] = useState({ name: "", email: "", password: "" });
@@ -11,14 +12,12 @@ function Signup() {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-
         try {
-            const res = await axios.post("https://rental-system-backend-ioto.onrender.com/signup", form);
-
+            const res = await axios.post("http://localhost:5000/signup", form);
             const userData = res.data;
             localStorage.setItem("hostId", userData.userId); 
 
-            alert("Signup successful!.");
+            alert("Signup successful!");
             navigate("/");
         } catch (error) {
             console.error("Signup failed:", error);
@@ -27,23 +26,10 @@ function Signup() {
     };
 
     return (
-        <div style={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            height: "100vh",
-            backgroundColor: "#f4f4f4"
-        }}>
-            <div style={{
-                backgroundColor: "white",
-                padding: "2rem",
-                borderRadius: "10px",
-                boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.1)",
-                textAlign: "center",
-                width: "300px"
-            }}>
-                <h2 style={{ marginBottom: "20px", color: "#333" }}>Signup</h2>
-                <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column" }}>
+        <div className="signup-container">
+            <div className="signup-box">
+                <h2>Signup</h2>
+                <form onSubmit={handleSubmit} className="signup-form">
                     <input 
                         type="text" 
                         name="name" 
@@ -51,13 +37,6 @@ function Signup() {
                         value={form.name}
                         onChange={handleChange} 
                         required 
-                        style={{
-                            padding: "10px",
-                            marginBottom: "10px",
-                            border: "1px solid #ccc",
-                            borderRadius: "5px",
-                            cursor: "pointer"
-                        }}
                     />
                     <input 
                         type="email" 
@@ -66,45 +45,20 @@ function Signup() {
                         value={form.email}
                         onChange={handleChange} 
                         required 
-                        style={{
-                            padding: "10px",
-                            marginBottom: "10px",
-                            border: "1px solid #ccc",
-                            borderRadius: "5px",
-                            cursor: "pointer"
-                        }}
                     />
                     <input 
                         type="password" 
                         name="password" 
-                        placeholder="Password (min. 6 chars)" 
+                        placeholder="Password" 
                         value={form.password}
                         onChange={handleChange} 
                         required 
-                        style={{
-                            padding: "10px",
-                            marginBottom: "10px",
-                            border: "1px solid #ccc",
-                            borderRadius: "5px",
-                            cursor: "pointer"
-                        }}
                     />
-                    <button type="submit" style={{
-                        padding: "10px",
-                        backgroundColor: "#28a745",
-                        color: "white",
-                        border: "none",
-                        borderRadius: "5px",
-                        cursor: "pointer"
-                    }}>
-                        Signup
-                    </button>
+                    <button type="submit">Signup</button>
                 </form>
-                <p style={{ marginTop: "20px" }}>
+                <p>
                     Already have an account?{" "}
-                    <span 
-                        onClick={() => navigate("/login")} 
-                        style={{ color: "#007bff", cursor: "pointer", textDecoration: "underline" }}>
+                    <span onClick={() => navigate("/login")} className="login-link">
                         Login as Host
                     </span>
                 </p>

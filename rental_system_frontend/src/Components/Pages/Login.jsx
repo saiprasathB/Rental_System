@@ -1,6 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import "../CSS/Login.css"; // Import CSS file
 
 function Login() {
     const [email, setEmail] = useState("");
@@ -10,7 +11,7 @@ function Login() {
     const handleLogin = async (e) => {
         e.preventDefault();
         try {
-            const res = await axios.post("https://rental-system-backend-ioto.onrender.com/login", 
+            const res = await axios.post("http://localhost:5000/login", 
                 { email, password }, 
                 { headers: { "Content-Type": "application/json" } }
             );
@@ -18,7 +19,6 @@ function Login() {
             console.log("Login Response:", res.data);
 
             if (res.data.userId) {
-                // Save user data in localStorage
                 localStorage.setItem("user", JSON.stringify({
                     userId: res.data.userId,
                     email: res.data.email,
@@ -36,35 +36,16 @@ function Login() {
     };
 
     return (
-        <div style={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            height: "100vh",
-            backgroundColor: "#f4f4f4"
-        }}>
-            <div style={{
-                backgroundColor: "white",
-                padding: "2rem",
-                borderRadius: "10px",
-                boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.1)",
-                textAlign: "center",
-                width: "300px"
-            }}>
-                <h2 style={{ marginBottom: "20px", color: "#333" }}>Login</h2>
-                <form onSubmit={handleLogin} style={{ display: "flex", flexDirection: "column" }}>
+        <div className="login-container">
+            <div className="login-box">
+                <h2>Login</h2>
+                <form onSubmit={handleLogin} className="login-form">
                     <input
                         type="email"
                         placeholder="Email"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                         required
-                        style={{
-                            padding: "10px",
-                            marginBottom: "10px",
-                            border: "1px solid #ccc",
-                            borderRadius: "5px"
-                        }}
                     />
                     <input
                         type="password"
@@ -72,23 +53,8 @@ function Login() {
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                         required
-                        style={{
-                            padding: "10px",
-                            marginBottom: "10px",
-                            border: "1px solid #ccc",
-                            borderRadius: "5px"
-                        }}
                     />
-                    <button type="submit" style={{
-                        padding: "10px",
-                        backgroundColor: "#007bff",
-                        color: "white",
-                        border: "none",
-                        borderRadius: "5px",
-                        cursor: "pointer"
-                    }}>
-                        Login
-                    </button>
+                    <button type="submit">Login</button>
                 </form>
             </div>
         </div>

@@ -1,0 +1,35 @@
+.become-host-container {
+    text-align: center;
+    padding: 20px;
+}
+
+.become-host-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.become-host-form input {
+    padding: 10px;
+    margin-bottom: 10px;
+    width: 250px;
+}
+
+.submit-button {
+    padding: 10px 20px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.already-host-text {
+    margin-top: 20px;
+}
+
+.login-link {
+    color: #007bff;
+    cursor: pointer;
+    text-decoration: underline;
+}

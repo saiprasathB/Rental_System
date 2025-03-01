@@ -1,6 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import "../CSS/PostRental.css";
 
 function PostRental() {
     const [title, setTitle] = useState("");
@@ -33,12 +34,12 @@ function PostRental() {
         try {
             console.log("Posting rental with hostId:", hostId);
 
-            const res = await axios.post("https://rental-system-backend-ioto.onrender.com/postrental", {
+            const res = await axios.post("http://localhost:5000/postrental", {
                 hostId,
                 title,
                 vehicleType,
                 location,
-                price: Number(price)  // Ensure price is sent as a number
+                price: Number(price)
             });
 
             alert("Rental posted successfully!");
@@ -50,16 +51,15 @@ function PostRental() {
     };
 
     return (
-        <div style={{ textAlign: "center", padding: "20px" }}>
+        <div className="post-rental-container">
             <h2>Post a Rental</h2>
-            <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", alignItems: "center", width: "100%", maxWidth: "400px", margin: "auto" }}>
+            <form onSubmit={handleSubmit} className="post-rental-form">
                 <input
                     type="text"
                     placeholder="Rental Title"
                     value={title}
                     onChange={(e) => setTitle(e.target.value)}
                     required
-                    style={{ padding: "10px", marginBottom: "10px", width: "100%" }}
                 />
                 <input
                     type="text"
@@ -67,7 +67,6 @@ function PostRental() {
                     value={vehicleType}
                     onChange={(e) => setVehicleType(e.target.value)}
                     required
-                    style={{ padding: "10px", marginBottom: "10px", width: "100%" }}
                 />
                 <input
                     type="text"
@@ -75,7 +74,6 @@ function PostRental() {
                     value={location}
                     onChange={(e) => setLocation(e.target.value)}
                     required
-                    style={{ padding: "10px", marginBottom: "10px", width: "100%" }}
                 />
                 <input
                     type="number"
@@ -84,14 +82,8 @@ function PostRental() {
                     onChange={(e) => setPrice(e.target.value)}
                     required
                     min="1"
-                    style={{ padding: "10px", marginBottom: "10px", width: "100%" }}
                 />
-                <button
-                    type="submit"
-                    style={{ padding: "10px 20px", backgroundColor: "#28a745", color: "white", border: "none", borderRadius: "5px", cursor: "pointer" }}
-                >
-                    Post Rental
-                </button>
+                <button type="submit">Post Rental</button>
             </form>
         </div>
     );

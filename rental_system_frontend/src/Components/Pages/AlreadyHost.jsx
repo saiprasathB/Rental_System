@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import "../CSS/AlreadyHost.css"; // Import the CSS file
 
 function AlreadyAHost() {
     const [email, setEmail] = useState("");
@@ -10,7 +11,7 @@ function AlreadyAHost() {
     const handleLogin = async (e) => {
         e.preventDefault();
         try {
-            const res = await axios.post("https://rental-system-backend-ioto.onrender.com/alreadyahost", { email, password });
+            const res = await axios.post("http://localhost:5000/alreadyahost", { email, password });
 
             console.log("Login Response:", res.data);
             
@@ -32,16 +33,16 @@ function AlreadyAHost() {
     };
 
     return (
-        <div style={{ textAlign: "center", padding: "20px" }}>
+        <div className="container">
             <h2>Host Login</h2>
-            <form onSubmit={handleLogin} style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+            <form onSubmit={handleLogin} className="form-container">
                 <input 
                     type="email" 
                     placeholder="Email" 
                     value={email} 
                     onChange={(e) => setEmail(e.target.value)} 
                     required 
-                    style={{ padding: "10px", marginBottom: "10px" }}
+                    className="input-field"
                 />
                 <input 
                     type="password" 
@@ -49,9 +50,9 @@ function AlreadyAHost() {
                     value={password} 
                     onChange={(e) => setPassword(e.target.value)} 
                     required 
-                    style={{ padding: "10px", marginBottom: "10px" }}
+                    className="input-field"
                 />
-                <button type="submit" style={{ padding: "10px 20px", backgroundColor: "#007bff", color: "white", border: "none", borderRadius: "5px", cursor: "pointer" }}>
+                <button type="submit" className="login-button">
                     Login
                 </button>
             </form>
