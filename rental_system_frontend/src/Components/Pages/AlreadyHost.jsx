@@ -19,7 +19,6 @@ function AlreadyAHost() {
                 alert(res.data.isVerified ? "Verified User!" : "Verification Pending!");
 
                 localStorage.setItem("hostId", res.data.hostId);
-                localStorage.setItem("hostEmail", res.data.email);
                 localStorage.setItem("hostVerified", res.data.isVerified ? "true" : "false"); 
 
                 navigate("/");  

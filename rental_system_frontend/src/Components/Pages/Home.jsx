@@ -68,7 +68,8 @@ function Home() {
         localStorage.removeItem("hostVerified");
         setIsLoggedIn(false);
         setIsVerified(false);
-        navigate("/");
+        setFilteredData(data);
+        navigate('/');
     };
     
     return (
@@ -117,7 +118,7 @@ function Home() {
             <div className="rental-listings">
               {filteredData.length > 0 ? (
                 filteredData.map((rental) => (
-                  <div key={rental._id} className="rental-card">
+                  <div key={rental._id} className="rental-card" >
                     <h3>{rental.name}</h3>
                     <p>Type: {rental.vehicleType}</p>
                     <p>Location: {rental.location}</p>
@@ -138,7 +139,7 @@ function Home() {
             <div className="rental-listings">
               {filteredData.length > 0 ? (
                 filteredData.map((rental) => (
-                  <div key={rental._id} className="rental-card">
+                  <div key={rental._id} className="rental-card"  onClick={() => navigate(`/rental/${rental._id}`)} style={{ cursor: "pointer" }}>
                     <h3>{rental.name}</h3>
                     <p>Type: {rental.vehicleType}</p>
                     <p>Location: {rental.location}</p>

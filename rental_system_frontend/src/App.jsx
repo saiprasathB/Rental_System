@@ -6,6 +6,7 @@ import Home from  "./Components/Pages/Home"
 import BecomeHost from "./Components/Pages/BecomeHost";
 import AlreadyAHost from "./Components/Pages/AlreadyHost";
 import PostRental from "./Components/Pages/PostRental";
+import RentalDetails from "./Components/Pages/RentalDetails";
 
 function App() {
     return (
@@ -17,6 +18,7 @@ function App() {
                 <Route path="/becomehost" element={<BecomeHost/>} />
                 <Route path="/alreadyahost" element={< AlreadyAHost/>} />
                 <Route path="/postrental" element={< PostRental/>} />
+                <Route path="/rental/:id" element={<RentalDetails />} />
 
                 
                 

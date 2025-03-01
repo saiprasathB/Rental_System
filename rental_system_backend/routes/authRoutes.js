@@ -3,6 +3,7 @@ const bcrypt = require("bcryptjs");
 const User = require("../models/User");
 const Host=require("../models/BecomeHost");
 const Rental=require("../models/RentalModel")
+const Booking = require("../models/Bookings");
 
 const router = express.Router();
 
@@ -190,6 +191,43 @@ router.get("/rentaldata", async (req, res) => {
     } catch (error) {
         console.error("Error in getting details:", error);
         res.status(500).json({ error: "Server error" });
+    }
+});
+
+
+
+
+router.get("/rentaldata/:id", async (req, res) => {
+    try {
+      const rental = await Rental.findById(req.params.id);
+      res.json(rental);
+    } catch (error) {
+      res.status(500).json({ error: "Error fetching rental details" });
+    }
+  });
+  
+  
+  router.post("/book", async (req, res) => {
+    try {
+        const { rentalId, userId, date } = req.body;
+        console.log(req.body)
+       
+        const existingBooking = await Booking.findOne({ rentalId, date });
+
+        if (existingBooking) {
+            console.log("exists");
+            return res.status(201).json({ message: "This rental is already booked for the selected date." });
+            
+        }
+         
+        
+        const newBooking = new Booking({ rentalId, userId, date });
+        await newBooking.save()
+        console.log("booked");
+
+        res.status(201).json({ message: "Booking successful!" });
+    } catch (error) {
+        res.status(500).json({ message: "Error booking rental.", error });
     }
 });
 
