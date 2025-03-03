@@ -12,7 +12,7 @@ function RentalDetails() {
   useEffect(() => {
     async function fetchRental() {
       try {
-        const response = await axios.get(`https://rental-system-backend-ioto.onrender.com//rentaldata/${id}`);
+        const response = await axios.get(`https://rental-system-backend-ioto.onrender.com/rentaldata/${id}`);
         setRental(response.data);
       } catch (error) {
         console.error("Error fetching rental details:", error);
