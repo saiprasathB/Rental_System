@@ -38,11 +38,12 @@ function RentalDetails() {
     const user = JSON.parse(localStorage.getItem("user"));
 
     try {
-        const response = await axios.post("http://localhost:5000/book", {
+        const response = await axios.post("https://rental-system-backend-ioto.onrender.com/book", {
             rentalId: rental._id,
             userId: user.userId,
             date: bookingDate,
         });
+
 
         alert(response.data.message); 
     } catch (error) {
