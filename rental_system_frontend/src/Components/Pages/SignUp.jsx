@@ -13,7 +13,7 @@ function Signup() {
         e.preventDefault();
 
         try {
-            const res = await axios.post("http://localhost:5000/signup", form);
+            const res = await axios.post("https://rental-system-cyan.vercel.app/signup", form);
             const userData = res.data;
             localStorage.setItem("hostId", userData.userId); 
 
