@@ -13,7 +13,7 @@ function BecomeHost() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const res = await axios.post("https://rental-system-cyan.vercel.app/becomehost", {
+            const res = await axios.post("https://rental-system-backend-ioto.onrender.com/becomehost", {
                 name,
                 email,
                 password: pass,

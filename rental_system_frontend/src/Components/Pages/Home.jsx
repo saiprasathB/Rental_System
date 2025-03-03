@@ -22,7 +22,7 @@ function Home() {
   
       async function displayData() {
         try {
-          const rentaldata = await axios.get("https://rental-system-cyan.vercel.app/rentaldata");
+          const rentaldata = await axios.get("https://rental-system-backend-ioto.onrender.com/rentaldata");
           setData(rentaldata.data);
   
           if (hostId) {

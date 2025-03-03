@@ -34,7 +34,7 @@ function PostRental() {
         try {
             console.log("Posting rental with hostId:", hostId);
 
-            const res = await axios.post("https://rental-system-cyan.vercel.app/postrental", {
+            const res = await axios.post("https://rental-system-backend-ioto.onrender.com/postrental", {
                 hostId,
                 title,
                 vehicleType,

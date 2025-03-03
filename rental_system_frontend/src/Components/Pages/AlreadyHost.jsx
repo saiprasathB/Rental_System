@@ -11,7 +11,7 @@ function AlreadyAHost() {
     const handleLogin = async (e) => {
         e.preventDefault();
         try {
-            const res = await axios.post("https://rental-system-cyan.vercel.app/alreadyahost", { email, password });
+            const res = await axios.post("https://rental-system-backend-ioto.onrender.com/alreadyahost", { email, password });
 
             console.log("Login Response:", res.data);
             
