@@ -13,8 +13,8 @@ function RentalDetails() {
   useEffect(() => {
     async function fetchRental() {
       try {
-       // const response = await axios.get(`http://localhost:5000/rentaldata/${id}`);
-        const response = await axios.get(`https://rental-system-backend-ioto.onrender.com/rentaldata/${id}`);
+        // const response = await axios.get(`http://localhost:5000/rentaldata/${id}`);
+     const response = await axios.get(`https://rental-system-backend-ioto.onrender.com/rentaldata/${id}`);
         setRental(response.data);
       } catch (error) {
         console.error("Error fetching rental details:", error);
@@ -56,6 +56,7 @@ function RentalDetails() {
   if (!rental) return <h2 className="loading">Loading...</h2>;
 
   return (
+    <div className="rental-details">
     <div className="container">
       <h1 className="title">{rental.name}</h1>
       <p className="details">Type: {rental.vehicleType}</p>
@@ -73,6 +74,7 @@ function RentalDetails() {
       <button onClick={handleBooking} className="button blue">
         Book Now
       </button>
+    </div>
     </div>
   );
 }
