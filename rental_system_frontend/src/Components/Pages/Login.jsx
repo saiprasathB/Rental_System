@@ -1,7 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import "../CSS/Login.css"; // Import CSS file
+import "../CSS/Login.css"; 
 
 function Login() {
     const [email, setEmail] = useState("");
@@ -11,6 +11,7 @@ function Login() {
     const handleLogin = async (e) => {
         e.preventDefault();
         try {
+          //  const res = await axios.post("http://localhost:5000/login", 
             const res = await axios.post("https://rental-system-backend-ioto.onrender.com/login", 
                 { email, password }, 
                 { headers: { "Content-Type": "application/json" } }

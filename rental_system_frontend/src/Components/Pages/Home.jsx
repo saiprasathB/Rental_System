@@ -22,7 +22,8 @@ function Home() {
   
       async function displayData() {
         try {
-          const rentaldata = await axios.get("https://rental-system-backend-ioto.onrender.com/rentaldata");
+       //   const rentaldata = await axios.get("http://localhost:5000/rentaldata");
+         const rentaldata = await axios.get("https://rental-system-backend-ioto.onrender.com/rentaldata");
           setData(rentaldata.data);
   
           if (hostId) {
