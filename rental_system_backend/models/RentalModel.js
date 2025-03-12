@@ -1,12 +1,13 @@
 const mongoose = require("mongoose");
 
 const RentalSchema = new mongoose.Schema({
-    hostId: { type: mongoose.Schema.Types.ObjectId, ref: "Host", required: true },
-    title: String ,
+    hostId: String,
+    title: String,
     vehicleType: String,
     location: String,
-    price: Number,
-    createdAt: { type: Date, default: Date.now }
+    latitude: Number, // Store latitude
+    longitude: Number, // Store longitude
+    price: Number
 });
 
 module.exports = mongoose.model("Rental", RentalSchema);

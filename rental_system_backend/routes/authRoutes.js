@@ -149,11 +149,11 @@ router.post("/alreadyahost", async (req, res) => {
 
 router.post("/postrental", async (req, res) => {
     try {
-        const { hostId, title, vehicleType, location, price } = req.body;
+        const { hostId, title, vehicleType, location, latitude, longitude, price } = req.body;
 
         if (!hostId) return res.status(400).json({ msg: "Host ID is required" });
 
-    
+        // Check if host exists and is verified
         const host = await Host.findById(hostId);
         if (!host) {
             return res.status(404).json({ msg: "Host not found" });
@@ -162,12 +162,19 @@ router.post("/postrental", async (req, res) => {
             return res.status(403).json({ msg: "Host is not verified. Cannot post rental." });
         }
 
-       
+        // Ensure latitude and longitude are provided
+        if (!latitude || !longitude) {
+            return res.status(400).json({ msg: "Latitude and Longitude are required" });
+        }
+
+        // Create rental entry
         const rental = new Rental({
             hostId,
             title,
             vehicleType,
             location,
+            latitude,
+            longitude,
             price
         });
 
@@ -182,12 +189,42 @@ router.post("/postrental", async (req, res) => {
 
 
 
-
 router.get("/rentaldata", async (req, res) => {
     try {
-        const rentaldata = await Rental.find();
-        res.status(200).json(rentaldata); 
-        console.log("Fetched rental data:", rentaldata); 
+        const { latitude, longitude } = req.query;
+
+        let rentaldata = await Rental.find();
+
+        if (latitude && longitude) {
+            const userLat = parseFloat(latitude);
+            const userLon = parseFloat(longitude);
+            const radius = 10; // 10 km radius
+
+            rentaldata = rentaldata.filter((rental) => {
+                if (rental.latitude && rental.longitude) {
+                    const rentalLat = rental.latitude;
+                    const rentalLon = rental.longitude;
+
+                    // Calculate distance using Haversine formula
+                    const toRad = (value) => (value * Math.PI) / 180;
+                    const R = 6371; // Earth radius in km
+
+                    const dLat = toRad(rentalLat - userLat);
+                    const dLon = toRad(rentalLon - userLon);
+                    const a =
+                        Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+                        Math.cos(toRad(userLat)) * Math.cos(toRad(rentalLat)) *
+                        Math.sin(dLon / 2) * Math.sin(dLon / 2);
+                    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+                    const distance = R * c;
+
+                    return distance <= radius;
+                }
+                return false;
+            });
+        }
+
+        res.status(200).json(rentaldata);
     } catch (error) {
         console.error("Error in getting details:", error);
         res.status(500).json({ error: "Server error" });

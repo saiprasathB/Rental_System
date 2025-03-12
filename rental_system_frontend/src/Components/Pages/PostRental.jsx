@@ -8,8 +8,45 @@ function PostRental() {
     const [vehicleType, setVehicleType] = useState("");
     const [location, setLocation] = useState("");
     const [price, setPrice] = useState("");
+    const [latitude, setLatitude] = useState(null);
+    const [longitude, setLongitude] = useState(null);
     const navigate = useNavigate();
 
+    const getLocation = () => {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(
+                async (position) => {
+                    const lat = position.coords.latitude;
+                    const lon = position.coords.longitude;
+                    setLatitude(lat);
+                    setLongitude(lon);
+    
+                    try {
+                        const response = await fetch(
+                            `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}&zoom=18&addressdetails=1`
+                        );
+                        const data = await response.json();
+    
+                        if (data && data.display_name) {
+                            setLocation(data.display_name);
+                        } else {
+                            alert("Could not fetch an accurate address. Try again.");
+                        }
+                    } catch (error) {
+                        console.error("Error fetching address:", error);
+                        alert("Failed to get address.");
+                    }
+                },
+                (error) => {
+                    console.error("Error getting location:", error);
+                    alert("Location access denied. Please enable location services.");
+                }
+            );
+        } else {
+            alert("Geolocation is not supported by your browser.");
+        }
+    };
+    
     const handleSubmit = async (e) => {
         e.preventDefault();
 
@@ -33,12 +70,13 @@ function PostRental() {
 
         try {
             console.log("Posting rental with hostId:", hostId);
-          //    const res = await axios.post("http://localhost:5000/postrental", {
-       const res = await axios.post("https://rental-system-backend-ioto.onrender.com/postrental", {
+            const res = await axios.post("http://localhost:5000/postrental", {
                 hostId,
                 title,
                 vehicleType,
                 location,
+                latitude,
+                longitude,
                 price: Number(price)
             });
 
@@ -75,6 +113,7 @@ function PostRental() {
                     onChange={(e) => setLocation(e.target.value)}
                     required
                 />
+                <button type="button" onClick={getLocation}>Use My Location</button>
                 <input
                     type="number"
                     placeholder="Price per Day"

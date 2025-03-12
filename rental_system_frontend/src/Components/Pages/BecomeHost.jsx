@@ -13,8 +13,8 @@ function BecomeHost() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-          //   const res = await axios.post("http://localhost:5000/becomehost", {
-         const res = await axios.post("https://rental-system-backend-ioto.onrender.com/becomehost", {
+            const res = await axios.post("http://localhost:5000/becomehost", {
+        // const res = await axios.post("https://rental-system-backend-ioto.onrender.com/becomehost", {
                 name,
                 email,
                 password: pass,

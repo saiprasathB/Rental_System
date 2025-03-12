@@ -1,7 +1,7 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import "../CSS/RentalData.css"
+import "../CSS/RentalDetails.css"
 
 function RentalDetails() {
   const { id } = useParams(); 
@@ -13,8 +13,8 @@ function RentalDetails() {
   useEffect(() => {
     async function fetchRental() {
       try {
-        // const response = await axios.get(`http://localhost:5000/rentaldata/${id}`);
-     const response = await axios.get(`https://rental-system-backend-ioto.onrender.com/rentaldata/${id}`);
+         const response = await axios.get(`http://localhost:5000/rentaldata/${id}`);
+     //const response = await axios.get(`https://rental-system-backend-ioto.onrender.com/rentaldata/${id}`);
         setRental(response.data);
       } catch (error) {
         console.error("Error fetching rental details:", error);
@@ -40,8 +40,8 @@ function RentalDetails() {
     const user = JSON.parse(localStorage.getItem("user"));
 
     try {
-      //const response = await axios.post("http://localhost:5000/book", {
-          const response = await axios.post("https://rental-system-backend-ioto.onrender.com/book", {
+      const response = await axios.post("http://localhost:5000/book", {
+      //    const response = await axios.post("https://rental-system-backend-ioto.onrender.com/book", {
             rentalId: rental._id,
             userId: user.userId,
             date: bookingDate,
